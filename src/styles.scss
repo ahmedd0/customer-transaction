@@ -9,3 +9,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eee;
 }
+@media (max-width: 599px) {
+  .cdk-overlay-pane.mat-mdc-dialog-panel {
+    max-width: 95vw !important;
+  }
+}
