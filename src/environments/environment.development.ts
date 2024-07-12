@@ -1,3 +1,3 @@
 export const environment = {
-  DB_URL: 'http://localhost:3000',
+  DB_URL: 'https://my-json-server.typicode.com/ahmedd0/customer-transaction',
 };
