@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <h3 class="mt-2">Transactions Details</h3>
+
+  <div style="display: block">
+    @if (isBrowser) {
+    <canvas
+      class="w-100"
+      baseChart
+      [type]="'line'"
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+    >
+    </canvas>
+    <div class="table-responsive my-3">
+      <table class="table table-bordered">
+        <thead class="text-white">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (transaction of transactions; track $index) {
+          <tr class="">
+            <td scope="row">{{ transaction?.id }}</td>
+            <td>{{ transaction?.amount }}</td>
+            <td>{{ transaction?.date }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    }
+  </div>
+</div>

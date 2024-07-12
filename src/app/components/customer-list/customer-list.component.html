@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="mt-5">
+    <h2 class="text-primary fw-bold mb-3">Customers List</h2>
+    <div class="d-lg-flex">
+      <input
+        #search
+        (keyup)="filterCustomersByName(search.value, amountSearch.value)"
+        class="mb-lg-0 mb-2 w-lg-75 form-control shadow-none"
+        type="text"
+        placeholder="Search by name "
+      />
+      <input
+        #amountSearch
+        (keyup)="filterCustomersByAmount(amountSearch.value, search.value)"
+        class="w-auto ms-lg-2 form-control shadow-none"
+        type="number"
+        placeholder="Search By Amount "
+        min="0"
+      />
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-stripped table-bordered border-white mt-5">
+        <thead class="bg-dark text-white">
+          <tr>
+            <th class="py-3 text-center">Customer Name</th>
+
+            <th class="py-3 text-center">Transactions Counts</th>
+            <th class="py-3 text-center">Total Transactions</th>
+            <th class="text-center py-3">Transactions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (customer of filteredCustomers; track $index) {
+          <tr>
+            <td class="align-middle text-center">{{ customer.name }}</td>
+            <td class="align-middle text-center">
+              {{ customer.transactions.length }}
+            </td>
+            <td class="align-middle text-center">
+              {{ customer.totalTransaction | currency }}
+            </td>
+            <td class="text-center align-middle">
+              <button
+                class="btn btn-primary shadow-none"
+                (click)="openTransactionDetails(customer.id)"
+              >
+                Details
+              </button>
+            </td>
+          </tr>
+          } @if (filteredCustomers.length == 0) {
+          <tr>
+            <td colspan="4" class="text-center">There Is No Data To Show</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
