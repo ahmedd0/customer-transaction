@@ -91,7 +91,7 @@ export class CustomerListComponent {
   openTransactionDetails(customerId: any) {
     this._MatDialog.open(TransactionDetailsComponent, {
       data: this.filterTransactions(customerId),
-      height: '90vh',
+      maxHeight: '90vh',
       width: '80%',
     });
   }
