@@ -69,9 +69,9 @@ export class CustomerListComponent {
 
     this.filteredCustomers = this.allCustomers.filter((customer: any) => {
       const matchesName = customer.name.toLowerCase().includes(valueLower);
-      const matchesAmount =
-        !amount || amount.value == customer.totalTransaction;
-
+      console.log(matchesName);
+      const matchesAmount = !amount || amount == customer.totalTransaction;
+      console.log(matchesAmount);
       return matchesName && matchesAmount;
     });
   }
