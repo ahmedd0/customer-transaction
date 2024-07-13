@@ -13,28 +13,31 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class TransactionDetailsComponent {
   isBrowser: any;
+  lineChartLegend = true;
+  lineChartData: ChartConfiguration<'line'>['data'];
+  lineChartOptions: ChartOptions<'line'>;
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     @Inject(MAT_DIALOG_DATA) public transactions: any
-  ) {}
+  ) {
+    this.lineChartOptions = {
+      responsive: true,
+    };
+    this.lineChartData = {
+      labels: this.transactions.map((transaction: any) => transaction.date),
+      datasets: [
+        {
+          data: this.transactions.map((transaction: any) => transaction.amount),
+          label: 'Transactions',
+          fill: true,
+          tension: 0.5,
+          borderColor: 'black',
+          backgroundColor: 'rgba(255,0,0,0.3)',
+        },
+      ],
+    };
+  }
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
-  lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.transactions.map((transaction: any) => transaction.date),
-    datasets: [
-      {
-        data: this.transactions.map((transaction: any) => transaction.amount),
-        label: 'Transactions',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)',
-      },
-    ],
-  };
-  lineChartOptions: ChartOptions<'line'> = {
-    responsive: true,
-  };
-  lineChartLegend = true;
 }

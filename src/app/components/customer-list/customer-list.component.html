@@ -4,14 +4,14 @@
     <div class="d-lg-flex">
       <input
         #search
-        (keyup)="filterCustomersByName(search?.value, amountSearch?.value)"
+        (keyup)="filterCustomersByName(search.value, +amountSearch.value)"
         class="mb-lg-0 mb-2 w-lg-75 form-control shadow-none"
         type="text"
         placeholder="Search by name "
       />
       <input
         #amountSearch
-        (keyup)="filterCustomersByAmount(amountSearch?.value, search?.value)"
+        (keyup)="filterCustomersByAmount(+amountSearch.value, search.value)"
         class="w-auto ms-lg-2 form-control shadow-none"
         type="number"
         placeholder="Search By Amount "
@@ -43,13 +43,13 @@
             <td class="text-center align-middle">
               <button
                 class="btn btn-primary shadow-none"
-                (click)="openTransactionDetails(customer?.id)"
+                (click)="openTransactionDetails(customer.id)"
               >
                 Details
               </button>
             </td>
           </tr>
-          } @if (filteredCustomers?.length == 0) {
+          } @if (filteredCustomers.length == 0) {
           <tr>
             <td colspan="4" class="text-center">There Is No Data To Show</td>
           </tr>

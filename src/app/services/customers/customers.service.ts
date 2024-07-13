@@ -13,10 +13,4 @@ export class CustomersService {
   getAllCustomers(): Observable<any> {
     return this.http.get(`${this.DB_URL}/customers`);
   }
-  deleteCutomer(id: number): Observable<any> {
-    return this.http.delete(`${this.DB_URL}/customers/${id}`);
-  }
-  getCustomer(id: number): Observable<any> {
-    return this.http.get(`${this.DB_URL}/customers/${id}`);
-  }
 }

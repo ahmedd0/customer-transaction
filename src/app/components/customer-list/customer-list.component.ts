@@ -5,6 +5,8 @@ import { CurrencyPipe } from '@angular/common';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-graph.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { Customers } from '../../models/customers';
+import { Transactions } from '../../models/transactions';
 
 @Component({
   selector: 'app-customer-list',
@@ -14,10 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './customer-list.component.scss',
 })
 export class CustomerListComponent {
-  customers: any[] = [];
-  transactions: any[] = [];
-  allCustomers: any;
-  filteredCustomers: any;
+  customers: Customers[] = [];
+  transactions: Transactions[] = [];
+  allCustomers: Customers[] = [];
+  filteredCustomers: Customers[] = [];
 
   constructor(
     private _CustomersService: CustomersService,
@@ -49,25 +51,27 @@ export class CustomerListComponent {
       },
     });
   }
-  calcTotalTransaction(transactions: any) {
+  calcTotalTransaction(transactions: Transactions[]) {
     return transactions?.reduce((total: number, transaction: any) => {
       return total + transaction.amount;
     }, 0);
   }
   getTransactions() {
-    this._TransactionsService.getAllTransaction().subscribe((res) => {
-      this.transactions = res;
-    });
+    this._TransactionsService
+      .getAllTransaction()
+      .subscribe((res: Transactions[]) => {
+        this.transactions = res;
+      });
   }
   filterTransactions(customerId: number): any {
     return this.transactions.filter((transaction) => {
       return transaction.customer_id == customerId;
     });
   }
-  filterCustomersByName(value: any, amount: any) {
+  filterCustomersByName(value: string, amount: number) {
     const valueLower = value.toLowerCase();
 
-    this.filteredCustomers = this.allCustomers.filter((customer: any) => {
+    this.filteredCustomers = this.allCustomers.filter((customer: Customers) => {
       const matchesName = customer.name.toLowerCase().includes(valueLower);
       console.log(matchesName);
       const matchesAmount = !amount || amount == customer.totalTransaction;
@@ -76,19 +80,18 @@ export class CustomerListComponent {
     });
   }
 
-  filterCustomersByAmount(amount: any, search: any) {
+  filterCustomersByAmount(amount: number, search: string) {
     const searchLower = search.toLowerCase();
 
     this.filteredCustomers = this.allCustomers.filter((customer: any) => {
-      const matchesAmount =
-        amount === '' || customer.totalTransaction == amount;
+      const matchesAmount = !amount || customer.totalTransaction == amount;
       const matchesSearch =
         !search || customer.name.toLowerCase().includes(searchLower);
 
       return matchesAmount && matchesSearch;
     });
   }
-  openTransactionDetails(customerId: any) {
+  openTransactionDetails(customerId: number) {
     this._MatDialog.open(TransactionDetailsComponent, {
       data: this.filterTransactions(customerId),
       maxHeight: '90vh',

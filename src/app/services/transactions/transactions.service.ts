@@ -13,10 +13,4 @@ export class TransactionsService {
   getAllTransaction(): Observable<any> {
     return this.http.get(`${this.DB_URL}`);
   }
-  deleteCutomer(id: number): Observable<any> {
-    return this.http.delete(`${this.DB_URL}/${id}`);
-  }
-  getTransactionById(id: number): Observable<any> {
-    return this.http.get(`${this.DB_URL}/${id}`);
-  }
 }

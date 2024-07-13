@@ -12,11 +12,4 @@ import { CustomerListComponent } from './components/customer-list/customer-list.
 })
 export class AppComponent {
   title = 'customer-transactions';
-  constructor(private _CustomersService: CustomersService) {}
-  getAllCustomers() {
-    this._CustomersService.getAllCustomers().subscribe((res) => {
-      console.log(res);
-    });
-  }
-  ngOnInit(): void {}
 }
